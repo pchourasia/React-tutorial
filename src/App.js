@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import logo from './logo.svg';
 import './App.css';
+import Reservation from './Form.js';
 
 // function Welcome(props){   //stateless component
 //   return <h1>Hello, {props.name}</h1>
@@ -147,6 +148,9 @@ class App extends Component {
         <br/>Keys serve as a hint to React but they don’t get passed to your components.<br/> 
         If you need the same value in your component, pass it explicitly as a prop with a different name</span>
         <NumberList numbers={numbers}/>
+        <br/><br/>
+        <b>Reservation Form</b>(<i>using Controlled components, if it is tedious, littile annoying, use uncontrolled components</i>)<br/>
+        <Reservation/>
       </div>
     );
   }
