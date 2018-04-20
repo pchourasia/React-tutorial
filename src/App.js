@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import logo from './logo.svg';
 import './App.css';
 import Reservation from './Form.js';
+import TemperatureCalculator from './Temperature Calculator';
 
 // function Welcome(props){   //stateless component
 //   return <h1>Hello, {props.name}</h1>
@@ -151,6 +152,8 @@ class App extends Component {
         <br/><br/>
         <b>Reservation Form</b>(<i>using Controlled components, if it is tedious, littile annoying, use uncontrolled components</i>)<br/>
         <Reservation/>
+        <br/><br/><b>Lifting State up</b>
+        <TemperatureCalculator/>
       </div>
     );
   }
