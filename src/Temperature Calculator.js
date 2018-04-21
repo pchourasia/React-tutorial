@@ -30,7 +30,7 @@ class TemperatureInput extends Component{
     }
 
     handleChange(e){
-        this.setState({temp:e.target.value});
+        this.props.onTempChange(e.target.value);
     }
 
     render(){
@@ -51,32 +51,31 @@ class TemperatureInput extends Component{
 class TemperatureCalculator extends Component{
     constructor(props){
         super(props);
-        this.state={
-            scale: 'c',
+        this.state={    //define state here for single source of truth, so that both the input would be in sync.
+            scale: 'c', 
             temp: ''
-        };
-        this.handleTempChange = this.handleTempChange.bind(this);
+        };//sharing state is accomplished by moving it up to the closest common ancestor of the components that need it. This is called “lifting state up”.
+        this.handleCelsiusChange = this.handleCelsiusChange.bind(this);
+        this.handleFahrenheitChange = this.handleFahrenheitChange.bind(this);
     }
 
-    handleTempChange(e){
-        const scale = e.target.scale;
-        if(scale==='c'){
-            this.setState({scale: 'c',temp:e.target.temp});
-        }
-        else{
-            this.setState({scale: 'f', temp:e.target.temp});
-        }
-    }
+    handleCelsiusChange(temp) {
+        this.setState({scale: 'c', temp});  //another way to update state, where passed var should be of same name
+      }
+    
+      handleFahrenheitChange(t) {
+        this.setState({scale: 'f', temp:t});
+      }
 
     render(){
         const scale = this.state.scale;
         const temp = this.state.temp;
-        const celsius = scale === 'c' ? temp : tryConvert(temp, toCelsius);
-        const fehrenheit = scale === 'f' ? temp : tryConvert(temp, toFahrenheit);
-        return(
+        const celsius = scale === 'f' ? tryConvert(temp, toCelsius) : temp;
+        const fahrenheit = scale === 'c' ? tryConvert(temp, toFahrenheit) : temp;
+        return(     //passing state as props
             <div>
-                <TemperatureInput scale='c' temp={celsius} onChange={this.handleTempChange}/>
-                <TemperatureInput scale='f' temp={fehrenheit} onChange={this.handleTempChange}/>
+                <TemperatureInput scale='c' temp={celsius} onTempChange={this.handleCelsiusChange}/>
+                <TemperatureInput scale='f' temp={fahrenheit} onTempChange={this.handleFahrenheitChange}/>
             </div>
         );
     }

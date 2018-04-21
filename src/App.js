@@ -145,14 +145,15 @@ class App extends Component {
         <Welcome name='pawan' num='0'/>
         {btn}
         <div id='clock'/>
-        <span>Keys used within arrays should be unique among their siblings.<br/> However they don’t need to be globally unique.
+        Keys used within arrays should be unique among their siblings.<br/>
+        {/* However they don’t need to be globally unique.
         <br/>Keys serve as a hint to React but they don’t get passed to your components.<br/> 
-        If you need the same value in your component, pass it explicitly as a prop with a different name</span>
+        If you need the same value in your component, pass it explicitly as a prop with a different name */}
         <NumberList numbers={numbers}/>
         <br/><br/>
         <b>Reservation Form</b>(<i>using Controlled components, if it is tedious, littile annoying, use uncontrolled components</i>)<br/>
         <Reservation/>
-        <br/><br/><b>Lifting State up</b>
+        <br/><br/><b>Lifting State up</b><i>(for single source of truth so that both of the i/p will be in sync)</i>
         <TemperatureCalculator/>
       </div>
     );
