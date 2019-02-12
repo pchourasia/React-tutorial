@@ -10,6 +10,11 @@ class Reservation extends Component{
             numberOfGuests: 1
         };
         this.handleInputChange = this.handleChange.bind(this);
+        this.submitForm = this.submitForm.bind(this);
+    }
+
+    submitForm(){
+        
     }
 
     handleChange(event){
@@ -44,6 +49,7 @@ class Reservation extends Component{
                     Number of guests:
                     <input name="numberOfGuests" type="number" value={this.state.numberOfGuests} onChange={this.handleInputChange}/>
                 </label>
+                <button onClick={this.submitForm}>Submit</button>
             </form>
         );
     }
