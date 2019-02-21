@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {browserHistory} from 'react-router';
 
 class Reservation extends Component{
     constructor(props){
@@ -7,19 +8,27 @@ class Reservation extends Component{
             firstName: '',
             gender: 'male',
             senioCitizen: false,
-            numberOfGuests: 1
+            numberOfGuests: 1,
+            visible: "none"
         };
         this.handleInputChange = this.handleChange.bind(this);
         this.submitForm = this.submitForm.bind(this);
     }
 
-    submitForm(){
-        
+    submitForm(e){
+        e.preventDefault();
+        this.setState({
+            visible:"block"
+        });
+    }
+
+    onNavigateHome(){
+        browserHistory.push("/home");
     }
 
     handleChange(event){
         const target = event.target;
-        const value = target.type === 'checkbox' ? target.checked : target.value;
+        const value = target.type === 'checkbox' ? target.checked : target.value; //To-Do: not getting checkbox value
         const name = target.name;
         this.setState({
             [name]: value
@@ -28,6 +37,7 @@ class Reservation extends Component{
 
     render(){
         return(
+            <div>
             <form>
                 <label>
                     First Name: 
@@ -49,8 +59,19 @@ class Reservation extends Component{
                     Number of guests:
                     <input name="numberOfGuests" type="number" value={this.state.numberOfGuests} onChange={this.handleInputChange}/>
                 </label>
-                <button onClick={this.submitForm}>Submit</button>
+                <br/>
+                <button onClick={this.submitForm}>Preview</button>
             </form>
+            <hr/>
+            <div style={{display:`${this.state.visible}`}}>
+                Name: {this.state.firstName}<br/>
+                Gender: {this.state.gender}<br/>
+                senioCitizen: {this.state.seniorCitizen}<br/>   
+                Number of guests: {this.state.numberOfGuests}
+            </div>
+            <hr/>
+            <button className="btn btn-primary" onClick={this.onNavigateHome}>Go Home</button>
+            </div>
         );
     }
 }

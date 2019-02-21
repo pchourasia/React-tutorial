@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+
+import {Router, Route, browserHistory, IndexRoute} from "react-router";
 import logo from './logo.svg';
 import './App.css';
+import '../node_modules/bootstrap/dist/css/bootstrap.css';
 import Reservation from './Form.js';
 import TemperatureCalculator from './Temperature Calculator';
+import {Root} from './Root.js';
 
 // function Welcome(props){   //stateless component
 //   return <h1>Hello, {props.name}</h1>
@@ -53,7 +57,10 @@ class Welcome extends Component{
   }
   render(){
     console.log(this.state);
-    return <h1>Hello, {this.props.name} - {this.state.a}</h1>
+    return <div>
+              <h1>Helloo, {this.props.name} - {this.state.a}</h1>
+              {this.props.children}
+            </div>
   }
 
   componentDidMount(){   
@@ -65,13 +72,13 @@ class Welcome extends Component{
 
 function MountBtn(props){
   return(
-    <button onClick={props.onClick}>Mount</button>
+    <button className="btn btn-primary" onClick={props.onClick}>Mount</button>
   )
 }
 
 function UnMountBtn(props){
   return(
-    <button onClick={props.onClick}>UnMount</button>
+    <button className="btn btn-success" onClick={props.onClick}>UnMount</button>
   )
 }
 
@@ -84,7 +91,7 @@ function ListItem(props){
 
 function NumberList(props){
   const numbers = props.numbers;
-  const listItems = numbers.map((number) =>  //key is must to know react which el has manipulations.
+  const listItems = numbers.map((number) =>  //key is must to know react which el has manipulations, otherwise react will check every el.
     <li key={number.toString()}>  
       {number}
     </li>
@@ -109,7 +116,24 @@ function NumberList(props){
   );
 }
 
-class App extends Component {
+class App extends Component{
+  render(){
+    return(
+        <Router history={browserHistory}>
+          <Route path={"/"} component={Root}>
+            <IndexRoute component={Home}/>
+            <Route path={"home"} component={Home}/>
+            <Route path={"form"} component={Reservation}/>
+          </Route>
+          <Route path={"temp"} component={TemperatureCalculator}/>
+        </Router>
+
+
+    );
+  }
+}
+
+class Home extends Component {
   constructor(props){
     super(props);
     this.state = {
@@ -141,8 +165,13 @@ class App extends Component {
   //   backgroundColor:'black'
   // }
     return (    //<div style={divStyle}>
-      <div> 
-        <Welcome name='pawan' num='0'/>
+      <div className="container"> 
+        <div className="row">
+          <div className="col-xs-10 col-xs-offset-1">
+        <Welcome name='pawan' num='0'>
+          <p>for props.children</p>
+        </Welcome>
+
         {btn}
         <div id='clock'/>
         Keys used within arrays should be unique among their siblings.<br/>
@@ -155,6 +184,8 @@ class App extends Component {
         <Reservation/>
         <br/><br/><b>Lifting State up</b><i>(for single source of truth so that both of the i/p will be in sync)</i>
         <TemperatureCalculator/>
+          </div>
+        </div>
       </div>
     );
   }

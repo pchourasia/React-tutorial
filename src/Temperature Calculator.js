@@ -48,6 +48,11 @@ class TemperatureInput extends Component{
     }
 }
 
+// TemperatureInput.propTypes = {
+//     scale: React.PropTypes.string,
+//     temp: React.PropTypes.number
+// };
+
 class TemperatureCalculator extends Component{
     constructor(props){
         super(props);
@@ -63,7 +68,7 @@ class TemperatureCalculator extends Component{
         this.setState({scale: 'c', temp});  //another way to update state, where passed var should be of same name
       }
     
-      handleFahrenheitChange(t) {
+    handleFahrenheitChange(t) {
         this.setState({scale: 'f', temp:t});
       }
 
